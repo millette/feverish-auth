@@ -25,6 +25,7 @@ const after = (options, server, next) => {
     password: 'password-should-be-32-characters',
     cookie: 'sid-example',
     redirectTo: '/login',
+    appendNext: true,
     isSecure: false,
     validateFunc: (request, session, callback) => {
       cache.get(
@@ -38,21 +39,22 @@ const after = (options, server, next) => {
   })
 
   const loginGet = function (request, reply) {
-    request.auth.isAuthenticated ? reply.redirect('/') : reply.view('login').etag(pkg.version)
+    if (request.auth.isAuthenticated) { return reply.redirect('/') }
+    reply.view('login', { next: request.query.next || '/' }).etag(pkg.version)
   }
 
   const loginPost = function (request, reply) {
     if (request.auth.isAuthenticated) { return reply.redirect('/') }
     if (!request.payload.username || !request.payload.password) {
-      return reply.view('login', { message: 'Missing username or password' })
+      return reply.view('login', { next: request.payload.next, message: 'Missing username or password' })
     }
 
     nano(process.env.DBURL).auth(request.payload.username, request.payload.password, (err, body, headers) => {
       if (err) {
         if (err.statusCode === 401) {
-          reply.view('login', { message: err.reason })
+          reply.view('login', { next: request.payload.next, message: err.reason })
         } else if (err.code === 'ECONNREFUSED') {
-          reply.view('login', { message: 'Problem with the database.' })
+          reply.view('login', { next: request.payload.next, message: 'Problem with the database.' })
         } else {
           reply(err)
         }
@@ -62,7 +64,7 @@ const after = (options, server, next) => {
       cache.set(body.name, { account: body }, 0, (err) => {
         if (err) { return reply(err) }
         request.cookieAuth.set({ sid: body.name })
-        reply.redirect('/')
+        reply.redirect(request.payload.next)
       })
     })
   }

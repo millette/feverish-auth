@@ -1,0 +1,38 @@
+
+{
+  "name": "feverish-auth",
+  "version": "0.0.0",
+  "description": "Feverish auth",
+  "main": "index.js",
+  "scripts": {
+    "lint": "standard",
+    "test": "standard"
+  },
+  "devDependencies": {
+    "standard": "^8.4.0"
+  },
+  "dependencies": {
+    "boom": "^4.2.0",
+    "dotenv-safe": "^2.3.2",
+    "hapi-auth-cookie": "^6.1.1",
+    "hapi-context-credentials": "^2.0.0",
+    "lodash-vision": "0.0.1",
+    "nano": "^6.2.0",
+    "vision": "^4.1.0"
+  },
+  "notHapiPlugins": [
+    "dotenv-safe",
+    "lodash-vision",
+    "boom",
+    "nano"
+  ],
+  "keywords": [
+    "feverish"
+  ],
+  "author": {
+    "name": "Robin Millette",
+    "email": "robin@millette.info",
+    "url": "http://robin.millette.info"
+  },
+  "license": "AGPL-3.0"
+}

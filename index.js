@@ -1,23 +1,14 @@
-
 'use strict'
 
 // npm
+const nano = require('nano')
 require('dotenv-safe').load({
   silent: true,
   sample: 'node_modules/feverish-auth/.env.example'
 })
 
-// core
-// const url = require('url')
-
-// const dbUsers = url.resolve(process.env.DBURL, '_users')
-// const dbUrl = url.resolve(process.env.DBURL, 'groupe2016')
-
 // self
 const pkg = require('./package.json')
-
-// npm
-const nano = require('nano')
 
 const after = (options, server, next) => {
   const cache = server.cache({ segment: 'sessions', expiresIn: 3 * 24 * 60 * 60 * 1000 })

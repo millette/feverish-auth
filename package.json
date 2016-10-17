@@ -13,6 +13,7 @@
   "dependencies": {
     "dotenv-safe": "^2.3.2",
     "hapi-auth-cookie": "^6.1.1",
+    "hapi-authorization": "millette/hapi-authorization#patch-1",
     "lodash-vision": "0.0.1",
     "nano": "^6.2.0",
     "vision": "^4.1.0"

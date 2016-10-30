@@ -8,10 +8,10 @@
     "test": "standard"
   },
   "devDependencies": {
-    "standard": "^8.4.0"
+    "standard": "^8.5.0"
   },
   "dependencies": {
-    "dotenv-safe": "^2.3.2",
+    "dotenv-safe": "^2.3.3",
     "hapi-auth-cookie": "^6.1.1",
     "hapi-authorization": "millette/hapi-authorization#patch-1",
     "lodash-vision": "0.0.1",
